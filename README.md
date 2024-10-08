@@ -1,7 +1,7 @@
 # dataprep
 Set of tools to process videos into a/v datasets [WIP]
 
-Use batch_demux to split long videos into .mp4 and .mp3 (or wav)
+These scripts assume you have FFMPEG installed to your system PATH. Use batch_demux to split long videos into .mp4 and .mp3 (or wav)
 
 The A scripts are to process the audio and V scripts for images. Normalize the audio as often as you want to keep all files roughly uniform in loudness. Desilence uses a threshold to go through a normalized audio file and cut out as much silence as possible to reduce excess data processing. Slice then splits the audio into manageable chunks to add labels. If you adjust silence ratios and especially silence lengths, check a file to make sure it is cutting the samples at appropriate places (i.e. you can only tell where the audio is cut by the time that is missing, not in the middel of dialog (though it will also trim long pauses)
 
