@@ -5,8 +5,6 @@ from tkinter import filedialog, messagebox, simpledialog
 from PIL import Image, ImageTk
 
 def load_json_to_lists(json_file_path):
-    folder_paths = []
-    descriptions = []
     with open(json_file_path, 'r') as file:
         data = json.load(file)
         folder_paths = data["folder_paths"]
@@ -150,10 +148,10 @@ def main():
         if not json_file:
             print("No JSON file selected.")
         i = 0
-        descriptions = []
+        descriptions_list = []
         for folder_path in folder_paths:
-            descriptions += [""]
-        save_description(folder_paths, descriptions, json_file)
+            descriptions_list += [""]
+        save_description(folder_paths, descriptions_list, json_file)
     create_interface(folder_paths, json_file, descriptions_list)
 
 
