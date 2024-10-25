@@ -10,7 +10,7 @@ def process_directory(root_dir):
                 os.makedirs(output_dir, exist_ok=True)
                 
                 video_output = os.path.join(output_dir, os.path.splitext(file)[0] + '.mp4')
-                audio_output = os.path.join(output_dir, os.path.splitext(file)[0] + '.mp3')
+                audio_output = os.path.join(output_dir, os.path.splitext(file)[0] + '.wav')
                 
                 command_video = ['ffmpeg', '-i', file_path, '-c:v', 'copy', '-an', video_output]
                 command_audio = ['ffmpeg', '-i', file_path, '-c:a', 'copy', '-vn', audio_output]
