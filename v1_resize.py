@@ -1,17 +1,42 @@
 import os
+import ffmpeg
 import subprocess
 
-def check_and_resize(directory, x, y):
+def resize_videos(directory, destination):
     for root, dirs, files in os.walk(directory):
         for file in files:
             if file.endswith('.mp4'):
-                filepath = os.path.join(root, file)
-                result = subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', filepath], stdout=subprocess.PIPE)
-                width, height = map(int, result.stdout.decode().split(','))
-                
-                if width > y and height > x:
-                    new_size = f"'{x}:{y}'" if width > height else f"'{y}:{x}'"
-                    subprocess.run(['ffmpeg', '-i', filepath, '-vf', f'scale={new_size}', os.path.join(root, f'resized_{file}')])
+                file_path = os.path.join(root, file)
+                video = ffmpeg.probe(file_path)
+                width = int(video['streams'][0]['width'])
+                height = int(video['streams'][0]['height'])
 
-# Replace 'your_directory_path' with the path to your directory containing the videos
-check_and_resize('path/to/folder', 720, 480)
+                if width > 720 or height > 480:
+                    new_width = width
+                    new_height = height
+
+                    if width > 720:
+                        new_width = 720
+                        new_height = int((720 / width) * height)
+                        new_height = (new_height // 2) * 2
+
+                    if new_height < 480:
+                        new_height = 480
+                        new_width = int((480 / height) * width)
+                        new_width = (new_width // 2) * 2
+
+                    output_path = os.path.join(destination, f"{file}")
+                    command = [
+                        'ffmpeg',
+                        '-i', file_path,  # Input file
+                        '-filter:v', f'scale={new_width}:{new_height}',
+                        '-y',  # Automatically answer 'yes' to overwrite prompts
+                        output_path  # Output file
+                    ]
+                    subprocess.run(command)
+                    print(f"Resized {file_path} to {output_path}")
+
+root_directory = 'path/to/folder'
+output_directory = 'path/to/save'
+
+resize_videos(root_directory, output_directory)
