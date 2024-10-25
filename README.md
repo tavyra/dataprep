@@ -10,3 +10,7 @@ For video, there is a step missing between resize, which makes a copy of the vid
 You may also use EasyAnimate for large datasets and simply copy the data folder after processing to your dektop if you prefer to not wait.
 
 The data labelling tools are used to quickly create datasets with relevant information. Currently, there is an image captioning tool, a video captioning tool which loads a folder of images sliced from a video (created after slicing with VLM script), a character:emotion labelling tool for images/videos, a character:emotion labelling tool for SHORT audio clips (simple GUI, plays full clip), and a tool you may adapt for training purposes (it currently holds counts for species, anthro type and checkboxes for object detection)
+![Audio Captioner](https://github.com/tavyra/dataprep/blob/main/audio_captioning.png)
+![Data Labelling](https://github.com/tavyra/dataprep/blob/main/data_labelling.png)
+![Emotion Labelling](https://github.com/tavyra/dataprep/blob/main/emotion_labelling.png)
+![Image Captioner](https://github.com/tavyra/dataprep/blob/main/VLM_caption.png)
